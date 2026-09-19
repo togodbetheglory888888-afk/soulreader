@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="description" content="SoulType — an offline personality, symbolic soul-age and reincarnation-style self-reflection quiz.">
+<meta name="theme-color" content="#070b18">
+<title>SoulType — Enhanced Soul Journey</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="hero">
+    <div class="brand">SOUL<span>TYPE</span></div>
+    <div class="hero-icon">✦</div>
+    <h1>Discover Your Soul Journey</h1>
+    <p>Personality • Symbolic Soul Age • Reincarnation Profile</p>
+    <div class="notice">Spiritual-style self-reflection only. Soul age and reincarnation cannot be scientifically measured or verified. Your result is generated locally from your answers.</div>
+  </header>
+
+  <main>
+    <section id="startScreen" class="card">
+      <div class="orb">◈</div>
+      <h2>What kind of soul are you?</h2>
+      <p class="muted">Answer honestly. There are no right or wrong answers.</p>
+      <label for="age">Your current age</label>
+      <input id="age" type="number" min="13" max="120" placeholder="Enter your age" inputmode="numeric" autocomplete="off">
+      <button id="startBtn" class="primary">Begin My Journey →</button>
+      <p class="tiny">Only your age is requested. No birthday, name, email, phone number, account, or profile is collected by this offline app.</p>
+    </section>
+
+    <section id="quizScreen" class="card hidden">
+      <div class="progress-row"><span id="questionCounter"></span><span id="progressPct"></span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div class="question-number" id="qNum"></div>
+      <h2 id="question"></h2>
+      <div id="answers"></div>
+      <button id="nextBtn" class="primary" disabled>Continue →</button>
+      <p class="tiny">Your answers stay in this page session and are used only to calculate the local result.</p>
+    </section>
+
+    <section id="donationScreen" class="card hidden">
+      <div class="donate-wrap">
+        <div class="donate-badge">SUPPORT SOULTYPE</div>
+        <h2>Support the journey before the reveal</h2>
+        <p>You have completed the questions. If you would like to support the SoulType project, you can donate through GCash before revealing your result.</p>
+        <div class="qr-box"><img src="gcash_qr.jpg" alt="GCash donation QR code"></div>
+        <div class="gcash-label">GCASH NUMBER</div>
+        <div class="gcash-number">09380536208</div>
+        <button id="copyNumberBtn" class="copy-number">Copy GCash Number</button>
+        <p class="donate-note">The app does not verify payments and does not collect a receipt, reference number, birthday, or other personal information. The reveal button simply confirms that you have completed your support step.</p>
+        <button id="revealBtn" class="primary">I Donated — Reveal My Result ✦</button>
+        <p id="donationStatus" class="share-status"></p>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="hidden">
+      <div class="result-card">
+        <div class="result-top">
+          <div class="small-label">YOUR SOULTYPE PROFILE</div>
+          <div id="resultEmoji" class="big-emoji">🐺</div>
+          <div id="personalityType" class="result-title">SIGMA</div>
+          <div id="personalitySubtitle" class="subtitle"></div>
+        </div>
+
+        <div class="result-grid">
+          <div class="stat"><span>SYMBOLIC SOUL AGE</span><strong id="soulAge"></strong><small id="soulStage"></small></div>
+          <div class="stat"><span>REINCARNATION</span><strong id="reincarnation"></strong><small id="cycleStage"></small></div>
+        </div>
+
+        <div class="reading-heading">
+          <div class="small-label">🔮 SOUL READING</div>
+          <h2>Your Personalized Reading</h2>
+          <p>Four layers of interpretation generated from your quiz profile.</p>
+        </div>
+
+        <div class="profile-box">
+          <div class="small-label">🧠 PERSONALITY DATA ANALYSIS</div>
+          <h3>Your Six Dimensions</h3>
+          <div id="dimensionTable" class="dimension-table"></div>
+          <div id="personalityAnalysis" class="reading-text"></div>
+        </div>
+
+        <div class="profile-box">
+          <div class="small-label">💼 CAREER COMPATIBILITY</div>
+          <h3>Career Areas That Match Your Profile</h3>
+          <p class="section-note">These are compatibility suggestions based on quiz dimensions, not predictions or instructions about what career you should choose.</p>
+          <div id="careerList" class="career-list"></div>
+          <div id="careerExplanation" class="reading-text"></div>
+        </div>
+
+        <div class="profile-box">
+          <div class="small-label">🌙 HOROSCOPE-STYLE SOUL READING</div>
+          <h3>The Wise One's Reading</h3>
+          <div class="reading-grid">
+            <div class="reading-mini"><span>🌅 YOUR PRESENT ENERGY</span><p id="presentEnergy"></p></div>
+            <div class="reading-mini"><span>🌙 WHAT YOUR SOUL IS LEARNING</span><p id="soulLearning"></p></div>
+            <div class="reading-mini"><span>🔥 YOUR HIDDEN STRENGTH</span><p id="hiddenStrength"></p></div>
+            <div class="reading-mini"><span>🌑 YOUR SHADOW</span><p id="shadow"></p></div>
+            <div class="reading-mini"><span>🧭 YOUR CURRENT LIFE DIRECTION</span><p id="lifeDirection"></p></div>
+            <div class="reading-mini"><span>💫 MESSAGE FROM THE WISE ONE</span><p id="wiseMessage"></p></div>
+          </div>
+        </div>
+
+        <div class="profile-box wise-box">
+          <div class="small-label">🧙 A WORD FROM THE WISE ONE</div>
+          <h3 id="wiseQuote"></h3>
+          <p><strong>Your advice:</strong> <span id="wiseAdvice"></span></p>
+        </div>
+
+        <div class="profile-box">
+          <div class="small-label">✨ SOUL ARCHETYPE</div>
+          <h3 id="soulRole"></h3>
+          <p id="description"></p>
+        </div>
+
+        <div class="profile-box">
+          <div class="small-label">🎯 LIFE THEME</div>
+          <p id="lifeTheme"></p>
+        </div>
+
+        <div class="profile-box">
+          <div class="small-label">🌌 ABOUT SOUL AGE & REINCARNATION</div>
+          <p>The Soul Age and reincarnation-cycle figures are symbolic interpretations for reflection and entertainment. They are not scientifically validated measurements and do not establish the existence, number, or timing of past lives.</p>
+        </div>
+
+        <div class="result-actions">
+          <button id="shareBtn" class="primary">Share My Result</button>
+          <button id="copyBtn" class="secondary">Copy Result</button>
+          <button id="againBtn" class="secondary">Take Again</button>
+        </div>
+        <p id="shareStatus" class="share-status"></p>
+        <p class="tiny center">SoulType is an entertainment/self-reflection experience, not a diagnosis, scientific test, or proof of past lives.</p>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
